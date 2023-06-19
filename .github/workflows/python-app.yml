@@ -24,6 +24,11 @@ jobs:
 
       # Check-out repository
       - uses: actions/checkout@v3
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       # Setup Python
       - uses: actions/setup-python@v4
@@ -41,7 +46,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: RobloxClientOptimizer-${{ github.ref }}
+          name: RobloxClientOptimizer-${{ steps.tag_version.outputs.new_tag }}
           path: build/main.exe
           
       - name: Create Release
