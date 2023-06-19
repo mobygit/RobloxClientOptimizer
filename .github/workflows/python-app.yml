@@ -7,7 +7,7 @@ on:
   push:
     branches: [ "main" ]
     tags:
-      - '*'
+      - 'v*'
 
   pull_request:
     branches: [ "main" ]
@@ -33,7 +33,7 @@ jobs:
           architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
 
       - name: version
-        run: echo "::set-output name=version::$(./bin/azblogfilter --version)"
+        run: echo "::set-output name=version::0.1.0"
       # Build python script into a stand-alone exe
       - uses: Nuitka/Nuitka-Action@main
         with:
