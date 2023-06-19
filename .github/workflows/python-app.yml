@@ -6,6 +6,9 @@ name: Python application
 on:
   push:
     branches: [ "main" ]
+    tags:
+      - '*'
+
   pull_request:
     branches: [ "main" ]
 
@@ -29,6 +32,8 @@ jobs:
           python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
           architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
 
+      - name: version
+        run: echo "::set-output name=version::$(./bin/azblogfilter --version)"
       # Build python script into a stand-alone exe
       - uses: Nuitka/Nuitka-Action@main
         with:
@@ -40,5 +45,17 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: exe
+          name: RobloxClientOptimizer-{{ steps.version.outputs.version }}
           path: build/main.exe
+          
+      - name: release
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          draft: false
+          prerelease: false
+          release_name: ${{ steps.version.outputs.version }}
+          tag_name: ${{ github.ref }}
+          body_path: CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
