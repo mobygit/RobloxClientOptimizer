@@ -44,7 +44,6 @@ jobs:
           cache: 'pip'
           cache-dependency-path: |
             requirements.txt
-          include-package: requests
           standalone: true
 
       # Uploads artifact
