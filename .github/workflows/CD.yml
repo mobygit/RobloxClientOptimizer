@@ -34,7 +34,7 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
-          architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+          architecture: 'x86' # optional x64 or x86. Defaults to x64 if not specified
       # Build python script into a stand-alone exe
       - uses: Nuitka/Nuitka-Action@main
         with:
@@ -43,7 +43,9 @@ jobs:
           archtecture: 'x86'
           cache: 'pip'
           cache-dependency-path: |
-            **/requirements*.txt
+            requirements.txt
+          include-package: requests
+          standalone: true
 
       # Uploads artifact
       - name: Upload Artifact
