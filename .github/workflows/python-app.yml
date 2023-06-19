@@ -45,7 +45,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: RobloxClientOptimizer-{{ steps.version.outputs.version }}
+          name: RobloxClientOptimizer-${{ steps.version.outputs.version }}
           path: build/main.exe
           
       - name: release
