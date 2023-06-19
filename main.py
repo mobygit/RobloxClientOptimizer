@@ -33,6 +33,8 @@ def run():
                         json.dump(req.json(), my_file, indent=6)
                         my_file.close()
 
+    print("Successfully updated Roblox client config")
+
 while True:
     run()
     time.sleep(120)
