@@ -13,7 +13,7 @@ on:
     branches: [ "main" ]
 
 permissions:
-  contents: read
+  contents: write-all
 
 jobs:
 
@@ -31,9 +31,6 @@ jobs:
         with:
           python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
           architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
-
-      - name: version
-        run: echo "::set-output name=version::0.1.0"
       # Build python script into a stand-alone exe
       - uses: Nuitka/Nuitka-Action@main
         with:
@@ -45,7 +42,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: RobloxClientOptimizer-${{ steps.version.outputs.version }}
+          name: RobloxClientOptimizer-${{ github.ref }}
           path: build/main.exe
           
       - name: Create Release
