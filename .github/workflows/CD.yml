@@ -40,7 +40,10 @@ jobs:
         with:
           nuitka-version: main
           script-name: main.py
-          onefile: true
+          archtecture: 'x86'
+          cache: 'pip'
+          cache-dependency-path: |
+            **/requirements*.txt
 
       # Uploads artifact
       - name: Upload Artifact
